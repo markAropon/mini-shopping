@@ -2,7 +2,6 @@ package com.MiniShopping.mini_shopping.domain.controller;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.constraints.NotBlank;
+
+import com.MiniShopping.mini_shopping.common.ApiResponse;
+import com.MiniShopping.mini_shopping.common.DefaultResponse;
 import com.MiniShopping.mini_shopping.domain.dto.OrderDTO;
 import com.MiniShopping.mini_shopping.domain.service.OrderService;
 
@@ -34,8 +37,9 @@ public class AdminOrderController {
         security = @SecurityRequirement(name = "bearerAuth")
     )
     @GetMapping
-    public ResponseEntity<List<OrderDTO>> getAllOrders() {
-        return ResponseEntity.ok(orderService.getAllOrders());
+    public ApiResponse<List<OrderDTO>> getAllOrders() {
+        List<OrderDTO> orders = orderService.getAllOrders();
+        return DefaultResponse.displayFoundObject(orders);
     }
     
     @Operation(
@@ -44,9 +48,10 @@ public class AdminOrderController {
         security = @SecurityRequirement(name = "bearerAuth")
     )
     @PutMapping("/{id}/status")
-    public ResponseEntity<OrderDTO> updateOrderStatus(
+    public ApiResponse<OrderDTO> updateOrderStatus(
             @PathVariable Long id, 
-            @RequestParam String status) {
-        return ResponseEntity.ok(orderService.updateOrderStatus(id, status));
+            @RequestParam @NotBlank(message = "Status is required") String status) {
+        OrderDTO updatedOrder = orderService.updateOrderStatus(id, status);
+        return DefaultResponse.displayUpdatedObject(updatedOrder);
     }
 }

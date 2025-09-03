@@ -3,8 +3,6 @@ package com.MiniShopping.mini_shopping.domain.controller;
 import java.security.Principal;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
+import com.MiniShopping.mini_shopping.common.ApiResponse;
+import com.MiniShopping.mini_shopping.common.DefaultResponse;
 import com.MiniShopping.mini_shopping.domain.dto.CreateOrderDTO;
 import com.MiniShopping.mini_shopping.domain.dto.OrderDTO;
 import com.MiniShopping.mini_shopping.domain.service.OrderService;
@@ -36,11 +38,11 @@ public class OrderController {
     )
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ROLE_CUSTOMER', 'ROLE_ADMIN')")
-    public ResponseEntity<OrderDTO> createOrder(@RequestBody CreateOrderDTO orderDTO, Principal principal) {
+    public ApiResponse<OrderDTO> createOrder(@Valid @RequestBody CreateOrderDTO orderDTO, Principal principal) {
         OrderDTO createdOrder = orderService.createOrder(orderDTO, principal.getName());
-        return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
+        return DefaultResponse.displayCreatedObject(createdOrder);
     }
-    
+
     @Operation(
         summary = "Get my orders", 
         description = "View all orders placed by the authenticated customer (Customer/Admin)",
@@ -48,7 +50,8 @@ public class OrderController {
     )
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ROLE_CUSTOMER', 'ROLE_ADMIN')")
-    public ResponseEntity<List<OrderDTO>> getMyOrders(Principal principal) {
-        return ResponseEntity.ok(orderService.getMyOrders(principal.getName()));
+    public ApiResponse<List<OrderDTO>> getMyOrders(Principal principal) {
+        List<OrderDTO> orders = orderService.getMyOrders(principal.getName());
+        return DefaultResponse.displayList(orders);
     }
 }

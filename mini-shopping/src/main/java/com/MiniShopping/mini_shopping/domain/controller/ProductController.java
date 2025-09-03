@@ -2,8 +2,6 @@ package com.MiniShopping.mini_shopping.domain.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.MiniShopping.mini_shopping.common.ApiResponse;
+import com.MiniShopping.mini_shopping.common.DefaultResponse;
 import com.MiniShopping.mini_shopping.domain.dto.ProductDTO;
 import com.MiniShopping.mini_shopping.domain.service.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -34,8 +35,9 @@ public class ProductController {
         description = "Retrieve all products (public endpoint)"
     )
     @GetMapping
-    public ResponseEntity<List<ProductDTO>> getAllProducts() {
-        return ResponseEntity.ok(productService.getAllProducts());
+    public ApiResponse<List<ProductDTO>> getAllProducts() {
+        List<ProductDTO> products = productService.getAllProducts();
+        return DefaultResponse.displayFoundObject(products);
     }
     
     @Operation(
@@ -43,8 +45,9 @@ public class ProductController {
         description = "Retrieve a specific product by its ID (public endpoint)"
     )
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
-        return ResponseEntity.ok(productService.getProductById(id));
+    public ApiResponse<ProductDTO> getProductById(@PathVariable Long id) {
+        ProductDTO product = productService.getProductById(id);
+        return DefaultResponse.displayFoundObject(product);
     }
     
     @Operation(
@@ -53,9 +56,9 @@ public class ProductController {
     )
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+    public ApiResponse<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) {
         ProductDTO createdProduct = productService.createProduct(productDTO);
-        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+        return DefaultResponse.displayCreatedObject(createdProduct);
     }
     
     @Operation(
@@ -64,8 +67,9 @@ public class ProductController {
     )
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
-        return ResponseEntity.ok(productService.updateProduct(id, productDTO));
+    public ApiResponse<ProductDTO> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductDTO productDTO) {
+        ProductDTO updatedProduct = productService.updateProduct(id, productDTO);
+        return DefaultResponse.displayUpdatedObject(updatedProduct);
     }
     
     @Operation(
@@ -74,8 +78,8 @@ public class ProductController {
     )
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+    public ApiResponse<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
-        return ResponseEntity.noContent().build();
+        return DefaultResponse.displayDeletedObject(null);
     }
 }
