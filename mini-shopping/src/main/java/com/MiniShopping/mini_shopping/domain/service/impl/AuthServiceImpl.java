@@ -16,8 +16,8 @@ import com.MiniShopping.mini_shopping.domain.dto.LoginDTO;
 import com.MiniShopping.mini_shopping.domain.dto.UserRegistrationDTO;
 import com.MiniShopping.mini_shopping.domain.entity.Role;
 import com.MiniShopping.mini_shopping.domain.entity.Users;
-import com.MiniShopping.mini_shopping.domain.security.jwt.JWT_TokenProvider;
 import com.MiniShopping.mini_shopping.domain.service.AuthService;
+import com.MiniShopping.mini_shopping.security.jwt.JWT_TokenProvider;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

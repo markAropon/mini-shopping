@@ -1,4 +1,4 @@
-package com.MiniShopping.mini_shopping.domain.security;
+package com.MiniShopping.mini_shopping.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,8 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.MiniShopping.mini_shopping.domain.security.jwt.JWT_AuthenicationFIlter;
-import com.MiniShopping.mini_shopping.domain.security.jwt.JWT_AuthenticationEntryPoint;
+import com.MiniShopping.mini_shopping.security.jwt.JWT_AuthenicationFIlter;
+import com.MiniShopping.mini_shopping.security.jwt.JWT_AuthenticationEntryPoint;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.MiniShopping.mini_shopping.domain.security;
+package com.MiniShopping.mini_shopping.security;
 
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package com.MiniShopping.mini_shopping.domain.config;
+package com.MiniShopping.mini_shopping.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,7 @@ public class OpenApiConfig {
                         .description("RESTful e-commerce API using Spring Boot with JWT authentication and Role-Based Access Control (RBAC)")
                         .contact(new Contact()
                                 .name("Developer ***Mark James Aropon***")
-                                .email("MarkjamesAropon.srbootcamp2025@gmail.com")))
+                                .email("markjamesAropon.srbootcamp2025@gmail.com")))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()
