@@ -1,4 +1,4 @@
-package com.MiniShopping.mini_shopping.domain.config;
+package com.MiniShopping.mini_shopping.config;
 
 import java.time.LocalDateTime;
 

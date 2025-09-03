@@ -10,7 +10,7 @@ import com.MiniShopping.mini_shopping.domain.dto.ProductDTO;
 import com.MiniShopping.mini_shopping.domain.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;       
 
 @Component
 @Slf4j

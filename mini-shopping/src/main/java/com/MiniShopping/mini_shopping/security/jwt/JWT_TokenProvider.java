@@ -1,4 +1,4 @@
-package com.MiniShopping.mini_shopping.domain.security.jwt;
+package com.MiniShopping.mini_shopping.security.jwt;
 
 import java.util.Date;
 
