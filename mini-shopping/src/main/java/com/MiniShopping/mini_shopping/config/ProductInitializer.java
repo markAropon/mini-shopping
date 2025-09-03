@@ -1,4 +1,4 @@
-package com.MiniShopping.mini_shopping.domain.config;
+package com.MiniShopping.mini_shopping.config;
 
 import java.util.List;
 
@@ -38,8 +38,7 @@ public class ProductInitializer implements ApplicationRunner {
             new ProductDTO("The Psychology of Money", "Book by Morgan Housel about timeless lessons on wealth and happiness", 17.99, 150)
         );
 
-        products.forEach(this::createProductIfNotExists);
-
+        products.forEach(this::createProductIfNotExists);  
         log.info("Initialized sample products in the database");
     }
 
